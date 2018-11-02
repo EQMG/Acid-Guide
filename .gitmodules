@@ -1,0 +1,3 @@
+[submodule "Libraries/Acid"]
+	path = Libraries/Acid
+	url = https://github.com/Equilibrium-Games/Acid
