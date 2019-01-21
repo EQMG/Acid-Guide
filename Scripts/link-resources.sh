@@ -1,10 +1,28 @@
+#!/usr/bin/env bash
 cd ../
 
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
-mkdir ${SCRIPTPATH}/Build/Debug/bin/Resources
-ln -s ${SCRIPTPATH}/Libraries/Acid/Resources ${SCRIPTPATH}/Build/Debug/bin/Resources
-ln -s ${SCRIPTPATH}/Resources ${SCRIPTPATH}/Build/Debug/bin/Resources/Game
-ln -s ${SCRIPTPATH}/Libraries/Acid/Resources ${SCRIPTPATH}/Build/Release/bin/Resources
-ln -s ${SCRIPTPATH}/Resources ${SCRIPTPATH}/Build/Release/bin/Resources/Game
-ln -s ${SCRIPTPATH}/Libraries/Acid/Resources ${SCRIPTPATH}/Build/RelWithDebInfo/bin/Resources
-ln -s ${SCRIPTPATH}/Resources ${SCRIPTPATH}/Build/RelWithDebInfo/bin/Resources/Game
+
+if [ -d "${SCRIPTPATH}/cmake-build-debug/bin" ]; then
+  mkdir "${SCRIPTPATH}/cmake-build-debug/bin/Resources"
+  ln -s "${SCRIPTPATH}/Libraries/Acid/Resources" "${SCRIPTPATH}/cmake-build-debug/bin/Resources/Engine"
+  ln -s "${SCRIPTPATH}/Resources" "${SCRIPTPATH}/cmake-build-debug/bin/Resources/Game"
+fi
+
+if [ -d "${SCRIPTPATH}/cmake-build-release/bin" ]; then
+  mkdir "${SCRIPTPATH}/cmake-build-release/bin/Resources"
+  ln -s "${SCRIPTPATH}/Libraries/Acid/Resources" "${SCRIPTPATH}/cmake-build-debug/bin/Resources/Engine"
+  ln -s "${SCRIPTPATH}/Resources" "${SCRIPTPATH}/cmake-build-debug/bin/Resources/Game"
+fi
+
+if [ -d "${SCRIPTPATH}/Build/bin" ]; then
+  mkdir "${SCRIPTPATH}/Build/bin/Resources"
+  ln -s "${SCRIPTPATH}/Libraries/Acid/Resources" "${SCRIPTPATH}/Build/bin32/Resources/Engine"
+  ln -s "${SCRIPTPATH}/Resources" "${SCRIPTPATH}/Build/bin32/Resources/Game"
+fi
+
+if [ -d "${SCRIPTPATH}/Build/bin32" ]; then
+  mkdir "${SCRIPTPATH}/Build/bin32/Resources"
+  ln -s "${SCRIPTPATH}/Libraries/Acid/Resources" "${SCRIPTPATH}/Build/bin32/Resources/Engine"
+  ln -s "${SCRIPTPATH}/Resources" "${SCRIPTPATH}/Build/bin32/Resources/Game"
+fi

@@ -1,8 +1,7 @@
 #include <iostream>
+#include <Devices/Mouse.hpp>
 #include <Files/Files.hpp>
-#include <Files/Json/FileJson.hpp>
 #include <Helpers/FileSystem.hpp>
-#include <Inputs/Mouse.hpp>
 #include <Renderer/Renderer.hpp>
 #include <Scenes/Scenes.hpp>
 
@@ -10,13 +9,12 @@ using namespace acid;
 
 int main(int argc, char **argv)
 {
-	// Registers file search paths.
-	Files::SetBaseDirectory(argv[0]);
-	Files::AddSearchPath("Resources/Game");
-	Files::AddSearchPath("Resources/Engine");
-
 	// Creates the engine.
-	auto engine = std::make_unique<Engine>();
+	auto engine = std::make_unique<Engine>(argv[0]);
+
+	// Registers file search paths.
+	Files::Get()->AddSearchPath("Resources/Game");
+	Files::Get()->AddSearchPath("Resources/Engine");
 
 	printf("Working Directory: %s\n", FileSystem::GetWorkingDirectory().c_str());
 
@@ -25,9 +23,10 @@ int main(int argc, char **argv)
 	// Registers components.
 
 	// Initializes modules.
-	Display::Get()->SetTitle("Game");
-	Display::Get()->SetIcon("Logos/Flask.png");
-//	Mouse::Get()->SetCustomMouse("Guis/Cursor.png");
+	Window::Get()->SetTitle("Game");
+	Window::Get()->SetIcons({"Icons/Icon-16.png", "Icons/Icon-24.png", "Icons/Icon-32.png", "Icons/Icon-48.png",
+		"Icons/Icon-64.png", "Icons/Icon-96.png", "Icons/Icon-128.png", "Icons/Icon-192.png", "Icons/Icon-256.png"});
+//	Mouse::Get()->SetCursor("Guis/Cursor.png");
 //	Renderer::Get()->SetManager(new MainRenderer());
 //	Scenes::Get()->SetScene(new Scene1());
 
