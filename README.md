@@ -1,2 +1,2 @@
 # Acid Guide
-Made following: https://github.com/Equilibrium-Games/Acid/wiki
+Made following: https://github.com/EQMG/Acid/wiki

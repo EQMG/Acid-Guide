@@ -20,7 +20,7 @@ endif()
 include(FetchContent)
 
 FetchContent_Declare(acid
-		GIT_REPOSITORY https://github.com/Equilibrium-Games/Acid.git
+		GIT_REPOSITORY https://github.com/EQMG/Acid.git
 		GIT_TAG master
 		)
 FetchContent_GetProperties(acid)
