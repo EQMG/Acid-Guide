@@ -1,10 +1,10 @@
-version: 0.13.2{build}
+version: 0.0.4{build}
 
 clone_depth: 5
 
 build:
   parallel: true
-  verbosity: normal
+  verbosity: minimal
 
 environment:
   matrix:
@@ -43,18 +43,5 @@ install:
 build_script:
   - call "%MSVC_HOME%\VC\Auxiliary\Build\vcvarsall.bat" %ARCHITECTURE%
   - mkdir Build\%BUILD_OUT% && cd Build\%BUILD_OUT%
-  - cmake -DCMAKE_BUILD_TYPE=%CFG% -DACID_LINK_RESOURCES=OFF -GNinja ../../
+  - cmake ../../ -GNinja -DCMAKE_BUILD_TYPE=%CFG% -DACID_LINK_RESOURCES=OFF
   - ninja
-  - ninja install
-  - cd ../../
-
-after_build:
-  - mkdir Artifacts\%CFG%_%ARCHITECTURE%
-  - xcopy Build\%BUILD_OUT%\lib Artifacts\%CFG%_%ARCHITECTURE%\lib\ /s/h/e/k/f/c
-  - xcopy Build\%BUILD_OUT%\bin Artifacts\%CFG%_%ARCHITECTURE%\bin\ /s/h/e/k/f/c
-  - xcopy Build\%BUILD_OUT%\install\include\Acid Artifacts\%CFG%_%ARCHITECTURE%\include\Acid\ /s/h/e/k/f/c
-  - xcopy Resources Artifacts\%CFG%_%ARCHITECTURE%\bin\Resources\Engine\ /s/h/e/k/f/c
-
-artifacts:
-  - path: Artifacts\%CFG%_%ARCHITECTURE%\
-    name: "Acid (%CFG% %ARCHITECTURE%)"

@@ -10,7 +10,7 @@ using namespace acid;
 int main(int argc, char **argv)
 {
 	// Creates the engine.
-	auto engine = std::make_unique<Engine>(argv[0]);
+	auto engine{std::make_unique<Engine>(argv[0])};
 
 	// Registers file search paths.
 	Files::Get()->AddSearchPath("Resources/Game");
@@ -27,11 +27,11 @@ int main(int argc, char **argv)
 	Window::Get()->SetIcons({"Icons/Icon-16.png", "Icons/Icon-24.png", "Icons/Icon-32.png", "Icons/Icon-48.png",
 		"Icons/Icon-64.png", "Icons/Icon-96.png", "Icons/Icon-128.png", "Icons/Icon-192.png", "Icons/Icon-256.png"});
 //	Mouse::Get()->SetCursor("Guis/Cursor.png");
-//	Renderer::Get()->SetManager(new MainRenderer());
-//	Scenes::Get()->SetScene(new Scene1());
+//	Renderer::Get()->SetManager(std::make_unique<MainRenderer>());
+//	Scenes::Get()->SetScene(std::make_unique<Scene1>());
 
 	// Runs the game loop.
-	int32_t exitCode = engine->Run();
+	auto exitCode{engine->Run()};
 
 	// Pauses the console.
 //	std::cin.get();
