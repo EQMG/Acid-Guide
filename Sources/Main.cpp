@@ -10,6 +10,8 @@ int main(int argc, char **argv)
 {
 	// Creates the engine.
 	auto engine{std::make_unique<Engine>(argv[0])};
+	engine->SetGameVersion({0, 0, 4});
+	engine->SetGameName("Acid Guide");
 
 	// Registers file search paths.
 	Files::Get()->AddSearchPath("Resources/Game");
