@@ -1,0 +1,16 @@
+#pragma once
+
+namespace acid {
+constexpr auto GAME_VERSION = "@Game_VERSION@";
+constexpr auto GAME_VERSION_MAJOR = @Game_VERSION_MAJOR@;
+constexpr auto GAME_VERSION_MINOR = @Game_VERSION_MINOR@;
+constexpr auto GAME_VERSION_PATCH = @Game_VERSION_PATCH@;
+
+constexpr auto GAME_COMPILED_COMPILER = "@CMAKE_CXX_COMPILER@";
+constexpr auto GAME_COMPILED_SYSTEM = "@CMAKE_SYSTEM@";
+constexpr auto GAME_COMPILED_GENERATOR = "@CMAKE_GENERATOR@";
+constexpr auto GAME_COMPILED_COMMIT_HASH = "@GAME_GIT_COMMIT_HASH@";
+constexpr auto GAME_COMPILED_BRANCH = "@GAME_GIT_BRANCH@";
+
+constexpr auto GAME_RESOURCES_DEV = "@GAME_RESOURCES_DIR@";
+}

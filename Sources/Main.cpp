@@ -3,6 +3,7 @@
 #include <Files/Files.hpp>
 #include <Graphics/Renderer.hpp>
 #include <Scenes/Scenes.hpp>
+#include "Config.hpp"
 
 using namespace acid;
 
@@ -10,6 +11,11 @@ int main(int argc, char **argv) {
 	// Creates the engine.
 	auto engine = std::make_unique<Engine>(argv[0]);
 
+	// TODO: Only when not installed. 
+	if (std::filesystem::exists(GAME_RESOURCES_DEV)) {
+		Files::Get()->AddSearchPath(GAME_RESOURCES_DEV);
+	}
+	
 	// Registers file search paths.
 	Files::Get()->AddSearchPath("Resources/Game");
 	Files::Get()->AddSearchPath("Resources/Engine");

@@ -1,9 +1,9 @@
 # 3.11.0 required for cxx_std_17 and FetchContent
 cmake_minimum_required(VERSION 3.11.0 FATAL_ERROR)
-project(Acid-Guide VERSION 0.0.4 LANGUAGES C CXX)
+project(Game VERSION 0.0.5 LANGUAGES C CXX)
 
 option(BUILD_SHARED_LIBS "Build Shared Libraries" ON)
-option(GAME_LINK_RESOURCES "Links the Resources to the bin directory" ON)
+option(GAME_INSTALL_RESOURCES "Installs the Resources directory" ON)
 
 # Sets the install directories defined by GNU
 include(GNUInstallDirs)
@@ -26,14 +26,36 @@ if(WIN32)
 	set(CMAKE_SHARED_LIBRARY_PREFIX "")
 endif()
 
-# Allows usage of configure time content
-include(FetchContent)
+# Uses git to find the current git branch and commit.
+execute_process(
+		COMMAND git rev-parse --abbrev-ref HEAD
+		WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+		OUTPUT_VARIABLE GAME_GIT_BRANCH
+		OUTPUT_STRIP_TRAILING_WHITESPACE
+		ERROR_QUIET
+		)
+
+execute_process(
+		COMMAND git log -1 --format=%h
+		WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+		OUTPUT_VARIABLE GAME_GIT_COMMIT_HASH
+		OUTPUT_STRIP_TRAILING_WHITESPACE
+		ERROR_QUIET
+		)
 
 # Acid game engine
-foreach(_acid_option "BUILD_TESTS" "ACID_INSTALL_EXAMPLES")
-	set(${_acid_option} OFF CACHE INTERNAL "")
-endforeach()
+set(BUILD_TESTS OFF CACHE INTERNAL "")
+set(ACID_INSTALL_EXAMPLES OFF CACHE INTERNAL "")
 add_subdirectory(External/Acid)
 
 # Sources
 add_subdirectory(Sources)
+
+if(GAME_INSTALL_RESOURCES)
+	# Install resources for end-user usage
+	# because many source files use these
+	install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Resources"
+			# Example: this will install the Resources dir to /usr/share/Game/Resources on Linux
+			DESTINATION "${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}"
+			)
+endif()
