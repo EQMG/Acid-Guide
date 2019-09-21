@@ -18,10 +18,6 @@ target_compile_features(Game PUBLIC cxx_std_17)
 target_include_directories(Game PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
 target_link_libraries(Game PRIVATE Acid::Acid)
 
-set_target_properties(Game PROPERTIES
-		FOLDER "Game"
-		)
-
 if(MSVC AND "${CMAKE_BUILD_TYPE}" STREQUAL "Release")
 	set_target_properties(Game PROPERTIES 
 			LINK_FLAGS "/subsystem:windows /ENTRY:mainCRTStartup"

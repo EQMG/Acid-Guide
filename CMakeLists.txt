@@ -1,6 +1,6 @@
 # 3.11.0 required for cxx_std_17 and FetchContent
 cmake_minimum_required(VERSION 3.11.0 FATAL_ERROR)
-project(Game VERSION 0.0.4 LANGUAGES C CXX)
+project(Acid-Guide VERSION 0.0.4 LANGUAGES C CXX)
 
 option(BUILD_SHARED_LIBS "Build Shared Libraries" ON)
 option(GAME_LINK_RESOURCES "Links the Resources to the bin directory" ON)
@@ -26,27 +26,14 @@ if(WIN32)
 	set(CMAKE_SHARED_LIBRARY_PREFIX "")
 endif()
 
-# Used to include Acid cmake modules
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/CMake)
-
 # Allows usage of configure time content
 include(FetchContent)
 
-find_package(Acid QUIET)
-if(NOT Acid_FOUND)
-	FetchContent_Declare(acid
-			GIT_REPOSITORY https://github.com/EQMG/Acid.git
-			GIT_TAG master
-			)
-	FetchContent_GetProperties(acid)
-	if(NOT acid_POPULATED)
-		foreach(_acid_option "BUILD_TESTS" "ACID_INSTALL_EXAMPLES")
-			set(${_acid_option} OFF CACHE INTERNAL "")
-		endforeach()
-		FetchContent_Populate(acid)
-		add_subdirectory(${acid_SOURCE_DIR} ${acid_BINARY_DIR})
-	endif()
-endif()
+# Acid game engine
+foreach(_acid_option "BUILD_TESTS" "ACID_INSTALL_EXAMPLES")
+	set(${_acid_option} OFF CACHE INTERNAL "")
+endforeach()
+add_subdirectory(External/Acid)
 
 # Sources
 add_subdirectory(Sources)

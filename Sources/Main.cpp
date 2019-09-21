@@ -6,12 +6,9 @@
 
 using namespace acid;
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
 	// Creates the engine.
-	auto engine{std::make_unique<Engine>(argv[0])};
-	engine->SetGameVersion({0, 0, 4});
-	engine->SetGameName("Acid Guide");
+	auto engine = std::make_unique<Engine>(argv[0]);
 
 	// Registers file search paths.
 	Files::Get()->AddSearchPath("Resources/Game");
@@ -31,9 +28,10 @@ int main(int argc, char **argv)
 	//Scenes::Get()->SetScene(std::make_unique<Scene1>());
 
 	// Runs the game loop.
-	auto exitCode{engine->Run()};
+	auto exitCode = engine->Run();
 
 	// Pauses the console.
-	//std::cin.get();
+	std::cout << "Press enter to continue...";
+	std::cin.get();
 	return exitCode;
 }

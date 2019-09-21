@@ -1,0 +1,3 @@
+[submodule "External/Acid"]
+	path = External/Acid
+	url = https://github.com/EQMG/Acid
