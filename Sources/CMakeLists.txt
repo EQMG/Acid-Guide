@@ -5,7 +5,12 @@ add_executable(Game)
 include(CMakeSources.cmake)
 
 target_compile_features(Game PUBLIC cxx_std_17)
-target_include_directories(Game PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
+target_include_directories(Game PRIVATE 
+		# Project source includes
+		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+		# Generated headers
+		$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+		)
 target_link_libraries(Game PRIVATE Acid::Acid)
 
 if(MSVC AND "${CMAKE_BUILD_TYPE}" STREQUAL "Release")
@@ -17,7 +22,7 @@ elseif(UNIX AND APPLE)
 		MACOSX_BUNDLE_BUNDLE_NAME "Game"
 		MACOSX_BUNDLE_SHORT_VERSION_STRING ${GAME_VERSION}
 		MACOSX_BUNDLE_LONG_VERSION_STRING ${GAME_VERSION}
-		MACOSX_BUNDLE_INFO_PLIST "${PROJECT_SOURCE_DIR}/External/Acid/CMake/MacOSXBundleInfo.plist.in"
+		MACOSX_BUNDLE_INFO_PLIST "${PROJECT_SOURCE_DIR}/External/Acid/CMake/Info.plist.in"
 		)
 endif()
 

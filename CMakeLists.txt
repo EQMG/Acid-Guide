@@ -1,30 +1,14 @@
 # 3.11.0 required for cxx_std_17 and FetchContent
 cmake_minimum_required(VERSION 3.11.0 FATAL_ERROR)
-project(Game VERSION 0.0.5 LANGUAGES C CXX)
+project(Game VERSION 0.0.6 LANGUAGES C CXX)
 
 option(BUILD_SHARED_LIBS "Build Shared Libraries" ON)
-option(GAME_INSTALL_RESOURCES "Installs the Resources directory" ON)
+option(BUILD_TESTS "Build test applications" OFF)
+option(ACID_INSTALL_RESOURCES "Installs the Resources directory" ON)
+option(ACID_LINK_RESOURCES "Passes local Resources directory into debug Confg" ON)
 
-# Sets the install directories defined by GNU
-include(GNUInstallDirs)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
-
-# Add property to allow making project folders in IDEs
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-# Position-independent code
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-# To build shared libraries in Windows, we set CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS to ON
-set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
-# Under some compilers CMAKE_DEBUG_POSTFIX is set to "d", removed to clean dll names
-set(CMAKE_DEBUG_POSTFIX "" CACHE STRING "Set Debug library postfix")
-set(CMAKE_RELEASE_POSTFIX "" CACHE STRING "Set Release library postfix")
-set(CMAKE_RELWITHDEBINFO_POSTFIX "" CACHE STRING "Set RelWithDebInfo library postfix")
-# Removes any dll prefix name on windows, unix will keep a prefix set as "lib"
-if(WIN32)
-	set(CMAKE_SHARED_LIBRARY_PREFIX "")
-endif()
+# Sets the CMake build dirs to the Acid standard.
+include(External/Acid/CMake/AcidIncludeDirs.cmake)
 
 # Uses git to find the current git branch and commit.
 execute_process(
@@ -43,19 +27,12 @@ execute_process(
 		ERROR_QUIET
 		)
 
-# Acid game engine
-set(BUILD_TESTS OFF CACHE INTERNAL "")
+# Acid engine engine
 set(ACID_INSTALL_EXAMPLES OFF CACHE INTERNAL "")
+set(BUILD_TESTS_EDITOR OFF CACHE INTERNAL "")
+set(BUILD_TESTS_TUTORIAL OFF CACHE INTERNAL "")
+set(BUILD_TESTS_UNITS OFF CACHE INTERNAL "")
 add_subdirectory(External/Acid)
 
-# Sources
+# Game sources directory
 add_subdirectory(Sources)
-
-if(GAME_INSTALL_RESOURCES)
-	# Install resources for end-user usage
-	# because many source files use these
-	install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Resources"
-			# Example: this will install the Resources dir to /usr/share/Game/Resources on Linux
-			DESTINATION "${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}"
-			)
-endif()

@@ -1,6 +1,9 @@
 # Acid Guide
 
-[![Build Status](https://travis-ci.org/EQMG/Acid-Guide.svg?branch=master)](https://travis-ci.org/EQMG/Acid-Guide)
-[![Build status](https://ci.appveyor.com/api/projects/status/xmousl6fc0pao0lh?svg=true)](https://ci.appveyor.com/project/Mattparks/acid-Guide)
+![Windows MSVC](https://github.com/EQMG/Acid-Guide/workflows/windows_msvc/badge.svg)
+![Linux Clang](https://github.com/EQMG/Acid-Guide/workflows/linux_clang/badge.svg)
+![Linux GCC](https://github.com/EQMG/Acid-Guide/workflows/linux_gcc/badge.svg)
+![macOS Clang](https://github.com/EQMG/Acid-Guide/workflows/macos_clang/badge.svg)
+
 
 Made following: https://github.com/EQMG/Acid/wiki

@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
 
 	// TODO: Only when not installed. 
 	if (std::filesystem::exists(GAME_RESOURCES_DEV)) {
-		Files::Get()->AddSearchPath(GAME_RESOURCES_DEV);
+		Files::Get()->AddSearchPath(std::string(GAME_RESOURCES_DEV));
 	}
 	
 	// Registers file search paths.
