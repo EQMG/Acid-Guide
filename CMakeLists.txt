@@ -1,14 +1,15 @@
 # 3.11.0 required for cxx_std_17 and FetchContent
 cmake_minimum_required(VERSION 3.11.0 FATAL_ERROR)
-project(Game VERSION 0.0.6 LANGUAGES C CXX)
+project(Game VERSION 0.0.7 LANGUAGES C CXX)
 
 option(BUILD_SHARED_LIBS "Build Shared Libraries" ON)
 option(BUILD_TESTS "Build test applications" OFF)
 option(ACID_INSTALL_RESOURCES "Installs the Resources directory" ON)
 option(ACID_LINK_RESOURCES "Passes local Resources directory into debug Confg" ON)
 
-# Sets the CMake build dirs to the Acid standard.
-include(External/Acid/CMake/AcidIncludeDirs.cmake)
+# Used to include Acid CMake modules
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_LIST_DIR}/External/Acid/CMake" CACHE STRING "Modules for CMake" FORCE)
+include(AcidIncludeDirs)
 
 # Uses git to find the current git branch and commit.
 execute_process(

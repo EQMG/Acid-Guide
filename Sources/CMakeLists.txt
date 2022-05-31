@@ -1,5 +1,4 @@
 add_executable(Game)
-
 # This file is quite big, so for readability we include instead...
 # This uses target_sources(Game) to define its headers & source files
 include(CMakeSources.cmake)

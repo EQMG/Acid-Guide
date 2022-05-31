@@ -1,5 +1,5 @@
 #include <iostream>
-#include <Devices/Mouse.hpp>
+#include <Devices/Windows.hpp>
 #include <Files/Files.hpp>
 #include <Graphics/Renderer.hpp>
 #include <Scenes/Scenes.hpp>
@@ -27,9 +27,15 @@ int main(int argc, char **argv) {
 	// Registers components.
 
 	// Initializes modules.
-	Window::Get()->SetTitle("Game");
-	Window::Get()->SetIcons({"Icons/Icon-16.png", "Icons/Icon-24.png", "Icons/Icon-32.png", "Icons/Icon-48.png",
+	auto window0 = Windows::Get()->AddWindow();
+	window0->SetTitle("Game");
+	window0->SetIcons({"Icons/Icon-16.png", "Icons/Icon-24.png", "Icons/Icon-32.png", "Icons/Icon-48.png",
 		"Icons/Icon-64.png", "Icons/Icon-96.png", "Icons/Icon-128.png", "Icons/Icon-192.png", "Icons/Icon-256.png"});
+	
+	window0->OnClose().connect([]() {
+		Engine::Get()->RequestClose();
+	});
+
 	//Graphics::Get()->SetManager(std::make_unique<MainRenderer>());
 	//Scenes::Get()->SetScene(std::make_unique<Scene1>());
 
@@ -37,7 +43,7 @@ int main(int argc, char **argv) {
 	auto exitCode = engine->Run();
 
 	// Pauses the console.
-	std::cout << "Press enter to continue...";
-	std::cin.get();
+	//std::cout << "Press enter to continue...";
+	//std::cin.get();
 	return exitCode;
 }
